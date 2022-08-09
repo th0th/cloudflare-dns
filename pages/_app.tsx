@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>CloudFlare DNS batch deleter</title>
+        <title>CloudFlare DNS bulk deleter</title>
       </Head>
 
       <Component {...pageProps} />
