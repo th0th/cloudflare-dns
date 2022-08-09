@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+`cloudflare-dns` is a simple web application for deleting [Cloudflare](https://www.cloudflare.com) DNS entries in bulk. Cloudflare doesn't have an offer an option to delete multiple DNS records at once, so it is painful when there multiple (most of the time, automatically added) records you need to delete.
 
-## Getting Started
+`cloudflare-dns` is a [Next.js](https://nextjs.org) application. You can use it on [https://cloudflare-dns-th0th.vercel.app](https://cloudflare-dns-th0th.vercel.app) which is deployed on [Vercel](https://vercel.com). Or you can deploy it on [Vercel](https://vercel.com) yourself, too:
 
-First, run the development server:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fth0th%2Fcloudflare-dns)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Shameless plug
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+I am an indie hacker, and I am running two services that might be useful for your business. Check them out :)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### WebGazer
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+[<img alt="WebGazer" src="https://user-images.githubusercontent.com/698079/162474223-f7e819c4-4421-4715-b8a2-819583550036.png" width="256" />](https://www.webgazer.io/?utm_source=github&utm_campaign=postgres-s3-backup-readme)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+WebGazer is a monitoring service that checks your website, cron jobs, or scheduled tasks on a regular basis. It notifies
+you with instant alerts in case of a problem. That way, you have peace of mind about the status of your service without
+manually checking it.
 
-## Learn More
+### PoeticMetric
 
-To learn more about Next.js, take a look at the following resources:
+[<img alt="PoeticMetric" src="https://user-images.githubusercontent.com/698079/162474946-7c4565ba-5097-4a42-8821-d087e6f56a5d.png" width="256" />](https://www.poeticmetric.com/?utm_source=github&utm_campaign=postgres-s3-backup-readme)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+PoeticMetric is a privacy-first, regulation-compliant, blazingly fast analytics tool.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+No cookies or personal data collection. So you don't have to worry about cookie banners or GDPR, CCPA, and PECR compliance.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Copyright © 2022, Gokhan Sari. Released under the [MIT License](LICENSE).
