@@ -10,8 +10,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const response = await fetch("https://api.cloudflare.com/client/v4/zones?per_page=50", { headers });
   const responseJson = await response.json();
 
-  if (response.status === 403) {
-    return res.status(403).json({ detail: "Authentication failed." });
+  if (!response.ok) {
+    return res.status(422).json({ detail: "CloudFlare responded with an error. Please double check your API token." });
   }
 
   const zones: Array<Zone> = responseJson.result.map((r: any) => ({ id: r.id, name: r.name }));

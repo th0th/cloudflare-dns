@@ -54,6 +54,10 @@ module.exports = {
       components: ["Link"],
       specialLink: ["hrefLeft", "hrefRight"],
     }],
+    "jsx-a11y/label-has-associated-control": ["error", {
+      assert: "either",
+      depth: 3,
+    }],
     "lines-between-class-members": 0,
     "max-len": ["error", 140, { ignoreStrings: true }],
     "no-param-reassign": 0,

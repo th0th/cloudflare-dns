@@ -1,3 +1,3 @@
-export * from "./CloudFlareHandler";
+export * from "./PageDnsRecords";
 export * from "./PageIndex";
-export * from "./SwrConfig";
+export * from "./PageZones";

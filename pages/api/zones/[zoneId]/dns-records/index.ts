@@ -21,15 +21,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     (dnsRecordIds as Array<string>).forEach((dnsRecordId) => {
       promises.push(new Promise((resolve, reject) => {
-        fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records/${dnsRecordId}`, { headers, method: "DELETE" })
+        fetch(
+          `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records/${dnsRecordId}`,
+          { headers, method: "DELETE" },
+        )
           .then((response) => (response.status === 200 ? resolve() : reject()))
-          .catch(() => reject());
+          .catch((e) => reject(e));
       }));
     });
 
     try {
       await Promise.all(promises);
-    } catch (error) {
+    } catch (e) {
       return respondDetail(res, 400, "Some of the DNS records couldn't be deleted.");
     }
 
@@ -37,16 +40,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === "GET") {
-    const response = await fetch(`https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records?per_page=5000`, { headers });
+    const response = await fetch(
+      `https://api.cloudflare.com/client/v4/zones/${zoneId}/dns_records?per_page=5000`,
+      { headers },
+    );
     const responseJson = await response.json();
 
-    if (response.status === 403) {
-      return res.status(403).json({ detail: "Authentication failed." });
+    if (!response.ok) {
+      return res.status(422).json({ detail: "CloudFlare responded with an error. Please double check your API token." });
     }
 
-    const dnsRecords: Array<DnsRecord> = [];
-
-    responseJson.result.forEach((r: any) => dnsRecords.push({ content: r.content, id: r.id, name: r.name, type: r.type }));
+    const dnsRecords: Array<DnsRecord> = responseJson.result.map((r: any) => ({
+      content: r.content,
+      id: r.id,
+      name: r.name,
+      type: r.type,
+    }));
 
     return res.json(dnsRecords);
   }

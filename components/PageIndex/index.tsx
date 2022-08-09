@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
+import { Button, Form, FormGroup } from "react-bootstrap";
 
 type State = {
   apiToken: string,
@@ -17,16 +18,32 @@ export function PageIndex() {
   const handleFormSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>(async (event) => {
     event.preventDefault();
 
-    await router.push({ pathname: "/dns-records", query: { apiToken: state.apiToken } });
+    await router.push({ pathname: "/zones", query: { apiToken: state.apiToken } });
   }, [router, state.apiToken]);
 
   return (
-    <form onSubmit={handleFormSubmit}>
-      <label htmlFor="input-api-key">CloudFlare API key</label>
+    <div className="container d-flex flex-column justify-content-center min-vh-100 py-4" style={{ maxWidth: 480 }}>
+      <Form onSubmit={handleFormSubmit}>
+        <p>
+          {"Please paste your CloudFlare API token to continue. If you don't have one, you can create "}
+          <a href="https://dash.cloudflare.com/profile/api-tokens" rel="noreferrer" target="_blank">here</a>
+          .
+        </p>
 
-      <input id="input-api-key" onChange={handleApiKeyChange} type="text" value={state.apiToken} />
+        <FormGroup className="mb-3" controlId="form-group-cloudflare-api-token">
+          <Form.Label>CloudFlare API key</Form.Label>
 
-      <button type="submit">Continue &rarr;</button>
-    </form>
+          <Form.Control onChange={handleApiKeyChange} required type="text" value={state.apiToken} />
+
+          <Form.Text className="text-muted">
+            Your API token is not stored. It is used only during your session.
+          </Form.Text>
+        </FormGroup>
+
+        <div className="d-grid">
+          <Button className="btn btn-primary" type="submit">Continue &rarr;</Button>
+        </div>
+      </Form>
+    </div>
   );
 }
