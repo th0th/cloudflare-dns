@@ -1,22 +1,32 @@
-import React, { useCallback, useContext } from 'react';
-import { CloudFlareContext } from '../../contexts';
+import { useRouter } from "next/router";
+import React, { useCallback, useState } from "react";
+
+type State = {
+  apiToken: string,
+};
 
 export function PageIndex() {
-  const { apiKey, set } = useContext(CloudFlareContext);
+  const router = useRouter();
+  const [state, setState] = useState<State>({ apiToken: "" });
 
-  const handleApiKeyChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
-    set<'apiKey'>('apiKey', event.target.value);
-  }, [set]);
+  const handleApiKeyChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => setState((s) => ({
+    ...s,
+    apiToken: event.target.value,
+  })), []);
+
+  const handleFormSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>(async (event) => {
+    event.preventDefault();
+
+    await router.push({ pathname: "/dns-records", query: { apiToken: state.apiToken } });
+  }, [router, state.apiToken]);
 
   return (
-    <form>
-      <label>CloudFlare API key</label>
+    <form onSubmit={handleFormSubmit}>
+      <label htmlFor="input-api-key">CloudFlare API key</label>
 
-      <input type="text" onChange={handleApiKeyChange} value={apiKey || ''} />
+      <input id="input-api-key" onChange={handleApiKeyChange} type="text" value={state.apiToken} />
 
-      <button type="submit">
-        Continue &rarr;
-      </button>
+      <button type="submit">Continue &rarr;</button>
     </form>
   );
 }
