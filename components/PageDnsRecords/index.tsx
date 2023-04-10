@@ -100,9 +100,7 @@ export function PageDnsRecords() {
           <p>{state.errorMessage}</p>
 
           <div className="d-grid">
-            <Link href="/">
-              <a className="btn btn-primary">&larr; Go back</a>
-            </Link>
+            <Link className="btn btn-primary" href="/">&larr; Go back</Link>
           </div>
         </div>
       );

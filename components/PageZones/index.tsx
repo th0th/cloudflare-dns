@@ -20,9 +20,7 @@ export function PageZones() {
           <p>{state.errorMessage}</p>
 
           <div className="d-grid">
-            <Link href="/">
-              <a className="btn btn-primary">&larr; Go back</a>
-            </Link>
+            <Link className="btn btn-primary" href="/">&larr; Go back</Link>
           </div>
         </div>
       );
@@ -42,8 +40,12 @@ export function PageZones() {
 
         <div className="list-group">
           {state.zones.map((z) => (
-            <Link href={{ pathname: "dns-records", query: { ...router.query, zoneId: z.id } }} key={z.id}>
-              <a className="list-group-item list-group-item-action">{z.name}</a>
+            <Link
+              className="list-group-item list-group-item-action"
+              href={{ pathname: "dns-records", query: { ...router.query, zoneId: z.id } }}
+              key={z.id}
+            >
+              {z.name}
             </Link>
           ))}
         </div>
