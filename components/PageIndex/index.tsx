@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { Button, Form, FormGroup } from "react-bootstrap";
 
 type State = {
-  apiToken: string,
+  apiToken: string;
 };
 
 export function PageIndex() {

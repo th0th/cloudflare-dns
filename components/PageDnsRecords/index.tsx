@@ -5,11 +5,11 @@ import { Form, FormGroup } from "react-bootstrap";
 import { useFetch } from "../../hooks";
 
 type State = {
-  dnsRecordIdsToDelete: Array<string>,
-  dnsRecords: Array<DnsRecord> | null,
-  errorMessage: string | null,
-  filter: string,
-  isInProgress: boolean,
+  dnsRecordIdsToDelete: Array<string>;
+  dnsRecords: Array<DnsRecord> | null;
+  errorMessage: string | null;
+  filter: string;
+  isInProgress: boolean;
 };
 
 export function PageDnsRecords() {

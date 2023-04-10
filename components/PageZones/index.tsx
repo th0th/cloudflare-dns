@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useFetch } from "../../hooks";
 
 type State = {
-  errorMessage: string | null,
-  zones: Array<Zone> | null,
+  errorMessage: string | null;
+  zones: Array<Zone> | null;
 };
 
 export function PageZones() {
