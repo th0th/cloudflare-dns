@@ -23,6 +23,17 @@ export function PageDnsRecords() {
     isInProgress: false,
   });
 
+  const listDnsRecords = useCallback(async () => {
+    const response = await fetch(`/api/zones/${router.query.zoneId}/dns-records`);
+    const responseJson = await response.json();
+
+    if (response.ok) {
+      setState((s) => ({ ...s, dnsRecords: responseJson }));
+    } else {
+      setState((s) => ({ ...s, errorMessage: responseJson.detail }));
+    }
+  }, [fetch, router.query.zoneId]);
+
   const deleteDnsRecords = useCallback(async () => {
     setState((s) => ({ ...s, isInProgress: true }));
 
@@ -32,9 +43,11 @@ export function PageDnsRecords() {
     });
 
     if (response.ok) {
-      setState((s) => ({ ...s, dnsRecordIdsToDelete: [], isInProgress: false }));
+      await listDnsRecords();
+
+      setState((s) => ({ ...s, dnsRecordIdsToDelete: [], filter: "", isInProgress: false }));
     }
-  }, [fetch, router.query.zoneId, state.dnsRecordIdsToDelete]);
+  }, [fetch, listDnsRecords, router.query.zoneId, state.dnsRecordIdsToDelete]);
 
   const handleDnsRecordCheckboxChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => setState((s) => {
     let dnsRecordIdsToDelete: Array<string> = [...s.dnsRecordIdsToDelete];
@@ -195,8 +208,10 @@ export function PageDnsRecords() {
   }, [
     deleteDnsRecords,
     filteredDnsRecords,
+    handleClearSelectionButtonClick,
     handleDnsRecordCheckboxChange,
     handleFilterChange,
+    handleSelectAllButtonClick,
     state.dnsRecordIdsToDelete,
     state.errorMessage,
     state.filter,
@@ -204,21 +219,10 @@ export function PageDnsRecords() {
   ]);
 
   useEffect(() => {
-    async function listDnsRecords() {
-      const response = await fetch(`/api/zones/${router.query.zoneId}/dns-records`);
-      const responseJson = await response.json();
-
-      if (response.ok) {
-        setState((s) => ({ ...s, dnsRecords: responseJson }));
-      } else {
-        setState((s) => ({ ...s, errorMessage: responseJson.detail }));
-      }
-    }
-
     if (router.isReady) {
       listDnsRecords();
     }
-  }, [fetch, router.isReady, router.query.zoneId]);
+  }, [listDnsRecords, router.isReady]);
 
   return contentNode;
 }
